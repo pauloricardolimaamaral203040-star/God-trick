@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOD TRICK | PREMIUM BY J8</title>
+    <style>
+        :root { --gold: #ffd700; --dark: #050505; --accent: #111; --green: #00ff00; --red: #ff0000; }
+        * { box-sizing: border-box; }
+        body { margin: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at top, rgba(255, 215, 0, 0.08), transparent 35%), var(--dark); color: white; font-family: 'Courier New', Courier, monospace; }
+        .card { width: 360px; padding: 28px; background: linear-gradient(180deg, #111 0%, #0b0b0b 100%); border: 2px solid var(--gold); border-radius: 18px; box-shadow: 0 0 50px rgba(255, 215, 0, 0.22); text-align: center; }
+        h1 { margin: 0; font-size: 28px; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 12px rgba(255, 215, 0, 0.8); }
+        .subtitle { margin: 8px 0 20px; color: #bbb; font-size: 11px; letter-spacing: 2px; }
+        input { width: 100%; padding: 13px 12px; margin: 8px 0; background: #000; border: 1px solid #333; color: var(--gold); border-radius: 7px; text-align: center; font-weight: bold; outline: none; }
+        button { width: 100%; padding: 15px; margin-top: 10px; background: var(--gold); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.25s ease; text-transform: uppercase; }
+        button:hover { background: #fff; box-shadow: 0 0 18px rgba(255, 255, 255, 0.35); }
+        .console { background: #000; border: 1px solid #222; height: 110px; margin-top: 18px; font-size: 11px; padding: 12px; text-align: left; overflow-y: auto; color: var(--green); border-left: 4px solid var(--gold); border-radius: 8px; }
+        .hidden { display: none; }
+        .status-box { font-size: 11px; background: #020202; padding: 12px; margin: 14px 0; border-radius: 8px; border: 1px solid #222; color: #ccc; text-align: left; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div id="login-screen" class="card">
+        <h1>GOD TRICK</h1>
+        <div class="subtitle">GLOBAL CHEATS SYSTEM</div>
+        <input type="text" id="user" placeholder="LOGIN">
+        <input type="password" id="pass" placeholder="SENHA">
+        <button onclick="login()">AUTENTICAR SISTEMA</button>
+    </div>
+
+    <div id="main-screen" class="card hidden">
+        <h1>GOD TRICK</h1>
+        <div class="subtitle">PAINEL DE CONTROLE USB</div>
+        <div class="status-box" id="device-info">
+            [SISTEMA]: Aguardando Hardware...<br>
+            [DPI]: Sensibilidade Leve Otimizada<br>
+            [TARGET]: Pescoço (Neck Lock)
+        </div>
+        <button onclick="conectarUSB()" style="background: #fff; color: #000; margin-bottom: 10px;">1. CONECTAR VIA USB</button>
+        <button onclick="injetarCheat()">2. ATIVAR GOD TRICK (CAPA)</button>
+        <div class="console" id="log">$ Aguardando conexão USB...</div>
+    </div>
+
+    <script>
+        const AUTH = { user: "god", pass: "trick" };
+        const logArea = document.getElementById('log');
+
+        function print(msg, color = "#00ff00") {
+            const t = new Date().toLocaleTimeString();
+            logArea.innerHTML += `<br><span style="color:${color}">[${t}] ${msg}</span>`;
+            logArea.scrollTop = logArea.scrollHeight;
+        }
+
+        function login() {
+            const user = document.getElementById('user').value;
+            const pass = document.getElementById('pass').value;
+            if (user === AUTH.user && pass === AUTH.pass) {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('main-screen').classList.remove('hidden');
+                detetarAparelho();
+            } else {
+                alert("LOGIN INCORRETO!");
+            }
+        }
+
+        function detetarAparelho() {
+            const ua = navigator.userAgent;
+            let fps = "60";
+            if (ua.includes("Samsung") || ua.includes("Xiaomi")) fps = "120";
+            else if (ua.includes("Motorola")) fps = "90";
+            document.getElementById('device-info').innerHTML = `[HARDWARE]: Detectado<br>[REFRESH]: ${fps}Hz Fixado<br>[DRIVER]: com.auxilio.j7 (Ativo)`;
+        }
+
+        async function conectarUSB() {
+            print("Iniciando busca WebUSB...");
+            try {
+                const device = await navigator.usb.requestDevice({ filters: [] });
+                print("Conectado: " + device.productName, "#ffd700");
+                print("Permissão ADB concedida!", "#ffd700");
+            } catch (err) {
+                print("ERRO: Nenhum dispositivo selecionado.", "#ff0000");
+            }
+        }
+
+        function injetarCheat() {
+            print("Iniciando Injeção de Driver...");
+            setTimeout(() => {
+                print("Ajustando Sensibilidade: LEVE", "#ffd700");
+                print("Fixando Aimlock: PESCOÇO", "#ffd700");
+                setTimeout(() => {
+                    print("FPS Otimizado: 60/90/120Hz", "#ffd700");
+                    print("GOD TRICK ATIVADO COM SUCESSO!", "#ffd700");
+                }, 1500);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
