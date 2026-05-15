@@ -91,28 +91,35 @@
         }
 
         async function conectarRealUSB() {
-            print("Iniciando Protocolo de Pareamento V4...");
+            print("Iniciando Handshake ADB V4...");
             try {
-                // Solicita o dispositivo
+                // 1. O navegador pede acesso ao hardware
                 const device = await navigator.usb.requestDevice({ filters: [] });
-                print("Dispositivo detectado: " + device.productName);
-                print("Aguardando autorização RSA no celular...", "#ffd700");
-
-                // FORÇAR ABRIR A PORTA (Isso dispara o aviso de Depuração no Celular)
                 await device.open();
-                if (device.configuration === null) {
-                    await device.selectConfiguration(1);
-                }
+
+                // 2. Tenta selecionar a configuração de interface do Android
+                if (device.configuration === null) await device.selectConfiguration(1);
+
+                // 3. O SEGREDO: Tenta reivindicar a interface 0 (onde o ADB roda)
+                // Isso obriga o Android a perguntar: "Ei, quem está tentando entrar?"
                 await device.claimInterface(0);
 
-                // Se chegar aqui sem erro, o celular deve mostrar o "Permitir depuração USB?"
+                print("Aguardando confirmação RSA no celular...", "#ffd700");
+
+                // 4. Envia o pacote de "Versão" do ADB para disparar o Pop-up no celular
+                const msg = new Uint8Array([0x43, 0x4e, 0x4e, 0x58, 0x00, 0x00, 0x00, 0x01, 0x00, 0x10, 0x00, 0x00]);
+                await device.transferOut(1, msg);
+
                 deviceConnected = true;
                 document.getElementById('status-display').innerText = "AUTORIZADO: " + device.productName;
                 document.getElementById('status-display').style.color = "var(--green)";
                 document.getElementById('btn-inject').disabled = false;
             } catch (err) {
-                print("ERRO: " + (err.message || err), "#ff4444");
-                print("DICA: Mude o modo USB para 'Transferência de Arquivos' no celular.", "#888");
+                if (err.message && err.message.includes("busy")) {
+                    print("O dispositivo já está processando. Olhe a tela do celular!", "#ffd700");
+                } else {
+                    print("ERRO: " + (err.message || err), "#ff4444");
+                }
                 deviceConnected = false;
             }
         }
