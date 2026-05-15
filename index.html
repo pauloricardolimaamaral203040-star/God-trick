@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOD TRICK V3 | ULTRA PREMIUM</title>
+    <title>GOD TRICK V4 | ULTRA PREMIUM</title>
     <style>
         :root { --gold: #ffd700; --dark: #050505; --accent: #111; --green: #00ff00; --red: #ff4444; }
         body { background: var(--dark); color: white; font-family: 'Courier New', Courier, monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
@@ -27,7 +27,7 @@
 </head>
 <body>
     <div id="login-screen" class="card">
-        <h1>GOD TRICK <span class="v2-tag">V3</span></h1>
+        <h1>GOD TRICK <span class="v2-tag">V4</span></h1>
         <div class="subtitle">SISTEMA DE INJEÇÃO REAL</div>
         <input type="text" id="user" placeholder="LOGIN">
         <input type="password" id="pass" placeholder="SENHA">
@@ -35,22 +35,22 @@
     </div>
 
     <div id="main-screen" class="card hidden">
-        <h1>GOD TRICK <span class="v2-tag">V3</span></h1>
-        <div class="subtitle">PAINEL USB V3 AUTÊNTICO</div>
+        <h1>GOD TRICK <span class="v2-tag">V4</span></h1>
+        <div class="subtitle">PAINEL USB V4 AUTÊNTICO</div>
         <div style="font-size: 11px; text-align: left; margin-bottom: 10px;">
             STATUS: <span id="status-display">DESCONECTADO</span><br>
             TARGET: <span style="color:var(--gold)">PESCOÇO (LOCK)</span><br>
             FOV: <span style="color:var(--gold)">40</span>
         </div>
         <button id="btn-connect" onclick="conectarRealUSB()">AUTORIZAR USB</button>
-        <button id="btn-inject" onclick="mostrarConfirmacao()" disabled>INJETAR V3</button>
+        <button id="btn-inject" onclick="mostrarConfirmacao()" disabled>INJETAR V4</button>
         <div id="log" class="console"></div>
     </div>
 
     <div id="confirmation-modal" class="modal">
         <div class="modal-content">
             <h2>CONFIRMAR INJEÇÃO?</h2>
-            <p style="color: #ccc; font-size: 12px;">Tem certeza que deseja injetar o V3 agora?</p>
+            <p style="color: #ccc; font-size: 12px;">Tem certeza que deseja injetar o V4 agora?</p>
             <div class="modal-buttons">
                 <button onclick="cancelarInjecao()" style="background: #444; color: #ccc;">CANCELAR</button>
                 <button onclick="confirmarInjecao()">CONFIRMAR</button>
@@ -91,30 +91,35 @@
         }
 
         async function conectarRealUSB() {
-            if (!('usb' in navigator)) {
-                print("WebUSB não disponível. Não é possível abrir o prompt de autorização.", "var(--red)");
-                return;
-            }
-
-            print("Solicitando acesso ao hardware USB...");
+            print("Iniciando Protocolo de Pareamento V4...");
             try {
-                const device = await navigator.usb.requestDevice({ filters: [], acceptAllDevices: true });
+                // Solicita o dispositivo
+                const device = await navigator.usb.requestDevice({ filters: [] });
+                print("Dispositivo detectado: " + device.productName);
+                print("Aguardando autorização RSA no celular...", "#ffd700");
+
+                // FORÇAR ABRIR A PORTA (Isso dispara o aviso de Depuração no Celular)
                 await device.open();
+                if (device.configuration === null) {
+                    await device.selectConfiguration(1);
+                }
+                await device.claimInterface(0);
+
+                // Se chegar aqui sem erro, o celular deve mostrar o "Permitir depuração USB?"
                 deviceConnected = true;
-                document.getElementById('status-display').innerText = "CONECTADO: " + device.productName;
+                document.getElementById('status-display').innerText = "AUTORIZADO: " + device.productName;
                 document.getElementById('status-display').style.color = "var(--green)";
                 document.getElementById('btn-inject').disabled = false;
-                print("Dispositivo " + device.productName + " autorizado!", "#ffd700");
-                print("Permissão USB concedida. Aguarde o prompt do sistema no seu telefone.", "#ffd700");
             } catch (err) {
-                print("ERRO: Falha na conexão USB. Verifique o navegador e o cabo.", "var(--red)");
+                print("ERRO: " + (err.message || err), "#ff4444");
+                print("DICA: Mude o modo USB para 'Transferência de Arquivos' no celular.", "#888");
                 deviceConnected = false;
             }
         }
 
         function injetarV2() {
             if (!deviceConnected) return;
-            print("Iniciando Protocolo V2...");
+            print("Iniciando Protocolo V4...");
             print("Verificando conexão USB real e FOV 40...");
             setTimeout(() => {
                 print("Lógica 'com.auxilio.j7' injetada no Pescoço.", "#ffd700");
@@ -122,7 +127,7 @@
                 print("FPS desbloqueado (Sync 120Hz).", "#ffd700");
                 setTimeout(() => {
                     print("---------------------------------");
-                    print("GOD TRICK V3 ATIVO COM SUCESSO!", "#ffd700");
+                    print("GOD TRICK V4 ATIVO COM SUCESSO!", "#ffd700");
                 }, 1500);
             }, 1000);
         }
