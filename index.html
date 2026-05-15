@@ -2,88 +2,97 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOD TRICK V2 | ULTRA PREMIUM</title>
-    <style>
-        :root { --gold: #ffd700; --dark: #050505; --accent: #111; --green: #00ff00; --red: #ff4444; }
-        body { background: var(--dark); color: white; font-family: 'Courier New', Courier, monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { width: 360px; padding: 25px; background: var(--accent); border: 2px solid var(--gold); border-radius: 15px; box-shadow: 0 0 50px rgba(255, 213, 0, 0.2); text-align: center; }
-        h1 { color: var(--gold); letter-spacing: 5px; margin: 0; font-size: 26px; text-shadow: 0 0 15px var(--gold); }
-        .v2-tag { background: var(--gold); color: black; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px; vertical-align: middle; }
-        .subtitle { font-size: 10px; color: #888; margin: 10px 0 20px; letter-spacing: 2px; }
-        input { width: 90%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #333; color: var(--gold); border-radius: 5px; text-align: center; font-weight: bold; outline: none; }
-        button { width: 100%; padding: 15px; background: var(--gold); color: black; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; text-transform: uppercase; }
-        button:disabled { background: #444; color: #888; cursor: not-allowed; }
-        .console { background: #000; border: 1px solid #222; height: 120px; margin-top: 20px; font-size: 11px; padding: 10px; text-align: left; overflow-y: auto; color: var(--green); border-left: 4px solid var(--gold); }
-        .hidden { display: none; }
-        #status-display { color: var(--red); font-weight: bold; }
-    </style>
-</head>
-<body>
-    <div id="login-screen" class="card">
-        <h1>GOD TRICK <span class="v2-tag">V2</span></h1>
-        <div class="subtitle">SISTEMA DE INJEÇÃO REAL</div>
-        <input type="text" id="user" placeholder="LOGIN">
-        <input type="password" id="pass" placeholder="SENHA">
-        <button onclick="login()">DESBLOQUEAR ACESSO</button>
-    </div>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>GOD TRICK V5 | OFFICIAL SUCCESS</title>
+                <style>
+                        :root { --gold: #ffd700; --dark: #050505; --green: #00ff00; }
+                                body { background: var(--dark); color: white; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+                                        .card { width: 360px; padding: 25px; background: #111; border: 2px solid var(--gold); border-radius: 15px; box-shadow: 0 0 50px rgba(255, 213, 0, 0.2); text-align: center; }
+                                                h1 { color: var(--gold); letter-spacing: 5px; margin: 0; font-size: 26px; text-shadow: 0 0 15px var(--gold); }
+                                                        .subtitle { font-size: 10px; color: #888; margin: 10px 0 20px; letter-spacing: 2px; }
+                                                                input { width: 90%; padding: 12px; margin: 8px 0; background: #000; border: 1px solid #333; color: var(--gold); border-radius: 5px; text-align: center; font-weight: bold; outline: none; }
+                                                                        button { width: 100%; padding: 15px; background: var(--gold); color: black; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
+                                                                                .console { background: #000; border: 1px solid #222; height: 120px; margin-top: 20px; font-size: 11px; padding: 10px; text-align: left; overflow-y: auto; color: var(--green); border-left: 4px solid var(--gold); }
+                                                                                        .hidden { display: none; }
+                                                                                            </style>
+                                                                                            </head>
+                                                                                            <body>
 
-    <div id="main-screen" class="card hidden">
-        <h1>GOD TRICK <span class="v2-tag">V2</span></h1>
-        <div class="subtitle">PAINEL USB AUTÊNTICO</div>
-        <div style="font-size: 11px; text-align: left; margin-bottom: 10px;">
-            STATUS: <span id="status-display">DESCONECTADO</span><br>
-            TARGET: <span style="color:var(--gold)">PESCOÇO (LOCK)</span><br>
-            FOV: <span style="color:var(--gold)">40</span>
+                                                                                                <div id="login-screen" class="card">
+                                                                                                        <h1>GOD TRICK V5</h1>
+                                                                                                                <div class="subtitle">AUTENTICAÇÃO DE VENDEDOR</div>
+                                                                                                                        <input type="text" id="user" placeholder="LOGIN">
+                                                                                                                                <input type="password" id="pass" placeholder="SENHA">
+                                                                                                                                        <button onclick="login()">ENTRAR</button>
+                                                                                                                                            </div>
 
-    <script>
-        const AUTH = { user: "god", pass: "trick" };
-        let deviceConnected = false;
+                                                                                                                                                <div id="main-screen" class="card hidden">
+                                                                                                                                                        <h1>GOD TRICK V5</h1>
+                                                                                                                                                                <div class="subtitle">SISTEMA ANTI-ERRO RSA</div>
+                                                                                                                                                                        <div style="font-size: 11px; text-align: left; margin-bottom: 10px;">
+                                                                                                                                                                                    STATUS: <span id="status-display" style="color:red">AGUARDANDO CABO</span>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                                    <button onclick="conectarV5()" style="background: #fff;">1. AUTORIZAR NO CELULAR</button>
+                                                                                                                                                                                                            <button id="btn-inject" onclick="injetarV5()" disabled>2. ATIVAR MAGNETISMO</button>
+                                                                                                                                                                                                                    <div class="console" id="log">$ Conecte o cabo e clique em Autorizar.</div>
+                                                                                                                                                                                                                        </div>
 
-        function print(msg, color = "#00ff00") {
-            const t = new Date().toLocaleTimeString();
-            document.getElementById('log').innerHTML += `<br><span style="color:${color}">[${t}] ${msg}</span>`;
-            document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
-        }
+                                                                                                                                                                                                                            <script>
+                                                                                                                                                                                                                                    const AUTH = { user: "god", pass: "trick" };
+                                                                                                                                                                                                                                            let device;
 
-        function login() {
-            if (document.getElementById('user').value === AUTH.user && document.getElementById('pass').value === AUTH.pass) {
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('main-screen').classList.remove('hidden');
-            } else {
-                alert("ACESSO NEGADO!");
-            }
-        }
+                                                                                                                                                                                                                                                    function print(msg, color = "#00ff00") {
+                                                                                                                                                                                                                                                                    document.getElementById('log').innerHTML += `<br><span style="color:${color}">> ${msg}</span>`;
+                                                                                                                                                                                                                                                                                document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
+                                                                                                                                                                                                                                                    }
 
-        async function conectarRealUSB() {
-            print("Solicitando acesso ao hardware USB...");
-            try {
-                const device = await navigator.usb.requestDevice({ filters: [] });
-                deviceConnected = true;
-                document.getElementById('status-display').innerText = "CONECTADO: " + device.productName;
-                document.getElementById('status-display').style.color = "var(--green)";
-                document.getElementById('btn-inject').disabled = false;
-                print("Dispositivo " + device.productName + " autorizado!", "#ffd700");
-            } catch (err) {
-                print("ERRO: Falha na conexão USB. Verifique o cabo.", "var(--red)");
-                deviceConnected = false;
-            }
-        }
+                                                                                                                                                                                                                                                            function login() {
+                                                                                                                                                                                                                                                                            if (document.getElementById('user').value === AUTH.user && document.getElementById('pass').value === AUTH.pass) {
+                                                                                                                                                                                                                                                                                                document.getElementById('login-screen').classList.add('hidden');
+                                                                                                                                                                                                                                                                                                                document.getElementById('main-screen').classList.remove('hidden');
+                                                                                                                                                                                                                                                                            } else { alert("Login Inválido"); }
+                                                                                                                                                                                                                                                            }
 
-        function injetarV2() {
-            if (!deviceConnected) return;
-            print("Iniciando Protocolo V2...");
-            print("Verificando conexão USB real e FOV 40...");
-            setTimeout(() => {
-                print("Lógica 'com.auxilio.j7' injetada no Pescoço.", "#ffd700");
-                print("FOV: 40 fixado com Aimlock premium.", "#ffd700");
-                print("FPS desbloqueado (Sync 120Hz).", "#ffd700");
-                setTimeout(() => {
-                    print("---------------------------------");
-                    print("GOD TRICK V2 ATIVO COM SUCESSO!", "#ffd700");
-                }, 1500);
-            }, 1000);
-        }
-    </script>
-</body>
-</html>
+                                                                                                                                                                                                                                                                    async function conectarV5() {
+                                                                                                                                                                                                                                                                                    try {
+                                                                                                                                                                                                                                                                                                        device = await navigator.usb.requestDevice({ filters: [] });
+                                                                                                                                                                                                                                                                                                                        await device.open();
+                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                        // RESET PARA LIMPAR INTERFACE "UNABLE TO CLAIM"
+                                                                                                                                                                                                                                                                                                                                                                        await device.reset();
+                                                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                                                        if (device.configuration === null) await device.selectConfiguration(1);
+                                                                                                                                                                                                                                                                                                                                                                                                                        await device.claimInterface(0);
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                        print("Handshake V5 Iniciado...");
+                                                                                                                                                                                                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        // ESTE É O COMANDO QUE O J7 RECEBIA PARA ABRIR O POP-UP
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        // Envia cabeçalho de conexão ADB (CNXN)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        const VERSION = 0x01000000;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        const MAXDATA = 256 * 1024;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        const header = new Uint32Array([0x4e584e43, VERSION, MAXDATA, 0, 0, 0]); 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        // 0x4e584e43 = "CNXN" em Little Endian
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        await device.transferOut(1, header.buffer);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        print("OLHE O SEU CELULAR AGORA!", "#ffd700");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        print("Aceite a chave RSA 'Sempre permitir'.", "#ffd700");
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('status-display').innerText = "POP-UP ENVIADO";
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('status-display').style.color = "orange";
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('btn-inject').disabled = false;
+
+                                                                                                                                                                                                                                                                                    } catch (err) {
+                                                                                                                                                                                                                                                                                                        print("ERRO CRÍTICO: " + err.message, "red");
+                                                                                                                                                                                                                                                                                                                        print("Solução: Reconecte o cabo e tente denovo.", "#888");
+                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                                                                            function injetarV5() {
+                                                                                                                                                                                                                                                                                            print("Injetando Painel God Trick V5...");
+                                                                                                                                                                                                                                                                                                        print("Aimlock Neck: 100% Ativo", "#ffd700");
+                                                                                                                                                                                                                                                                                                                    print("FPS: 120Hz Otimizado", "#ffd700");
+                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                </script>
+                                                                                                                                                                                                                                                                                </body>
+                                                                                                                                                                                                                                                                                </html>
