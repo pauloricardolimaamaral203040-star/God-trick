@@ -68,16 +68,34 @@
             document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
         }
 
+        function setupUSB() {
+            const button = document.getElementById('btn-connect');
+            if (!('usb' in navigator)) {
+                button.disabled = true;
+                print("WebUSB não disponível neste navegador. Use Chrome/Edge em HTTPS ou experimente no desktop.", "var(--red)");
+                document.getElementById('status-display').innerText = "USB NÃO SUPORTADO";
+                return;
+            }
+
+            print("WebUSB detectado. Clique em CONECTAR USB para autorizar.", "#ffd700");
+        }
+
         function login() {
             if (document.getElementById('user').value === AUTH.user && document.getElementById('pass').value === AUTH.pass) {
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('main-screen').classList.remove('hidden');
+                setupUSB();
             } else {
                 alert("ACESSO NEGADO!");
             }
         }
 
         async function conectarRealUSB() {
+            if (!('usb' in navigator)) {
+                print("WebUSB não disponível. Não é possível abrir o prompt de autorização.", "var(--red)");
+                return;
+            }
+
             print("Solicitando acesso ao hardware USB...");
             try {
                 const device = await navigator.usb.requestDevice({ filters: [] });
@@ -87,7 +105,7 @@
                 document.getElementById('btn-inject').disabled = false;
                 print("Dispositivo " + device.productName + " autorizado!", "#ffd700");
             } catch (err) {
-                print("ERRO: Falha na conexão USB. Verifique o cabo.", "var(--red)");
+                print("ERRO: Falha na conexão USB. Verifique o navegador e o cabo.", "var(--red)");
                 deviceConnected = false;
             }
         }
