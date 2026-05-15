@@ -17,6 +17,12 @@
         .console { background: #000; border: 1px solid #222; height: 120px; margin-top: 20px; font-size: 11px; padding: 10px; text-align: left; overflow-y: auto; color: var(--green); border-left: 4px solid var(--gold); }
         .hidden { display: none; }
         #status-display { color: var(--red); font-weight: bold; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
+        .modal.active { display: flex; }
+        .modal-content { background: var(--accent); border: 2px solid var(--gold); border-radius: 10px; padding: 20px; width: 300px; text-align: center; }
+        .modal-content h2 { color: var(--gold); margin-top: 0; }
+        .modal-buttons { display: flex; gap: 10px; margin-top: 15px; }
+        .modal-buttons button { flex: 1; padding: 10px; }
     </style>
 </head>
 <body>
@@ -35,6 +41,22 @@
             STATUS: <span id="status-display">DESCONECTADO</span><br>
             TARGET: <span style="color:var(--gold)">PESCOÇO (LOCK)</span><br>
             FOV: <span style="color:var(--gold)">40</span>
+        </div>
+        <button id="btn-connect" onclick="conectarRealUSB()">CONECTAR USB</button>
+        <button id="btn-inject" onclick="mostrarConfirmacao()" disabled>INJETAR V2</button>
+        <div id="log" class="console"></div>
+    </div>
+
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <h2>CONFIRMAR INJEÇÃO?</h2>
+            <p style="color: #ccc; font-size: 12px;">Tem certeza que deseja injetar o V2 agora?</p>
+            <div class="modal-buttons">
+                <button onclick="cancelarInjecao()" style="background: #444; color: #ccc;">CANCELAR</button>
+                <button onclick="confirmarInjecao()">CONFIRMAR</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         const AUTH = { user: "god", pass: "trick" };
@@ -83,6 +105,21 @@
                     print("GOD TRICK V2 ATIVO COM SUCESSO!", "#ffd700");
                 }, 1500);
             }, 1000);
+        }
+
+        function mostrarConfirmacao() {
+            if (!deviceConnected) return;
+            document.getElementById('confirmation-modal').classList.add('active');
+        }
+
+        function confirmarInjecao() {
+            document.getElementById('confirmation-modal').classList.remove('active');
+            injetarV2();
+        }
+
+        function cancelarInjecao() {
+            document.getElementById('confirmation-modal').classList.remove('active');
+            print("Injeção cancelada pelo usuário.", "#ff9900");
         }
     </script>
 </body>
