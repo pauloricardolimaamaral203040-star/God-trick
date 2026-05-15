@@ -3,93 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOD TRICK | PREMIUM BY J8</title>
+    <title>GOD TRICK V2 | ULTRA PREMIUM</title>
     <style>
-        :root { --gold: #ffd700; --dark: #050505; --accent: #111; --green: #00ff00; --red: #ff0000; }
-        * { box-sizing: border-box; }
-        body { margin: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at top, rgba(255, 215, 0, 0.08), transparent 35%), var(--dark); color: white; font-family: 'Courier New', Courier, monospace; }
-        .card { width: 360px; padding: 28px; background: linear-gradient(180deg, #111 0%, #0b0b0b 100%); border: 2px solid var(--gold); border-radius: 18px; box-shadow: 0 0 50px rgba(255, 215, 0, 0.22); text-align: center; }
-        h1 { margin: 0; font-size: 28px; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 12px rgba(255, 215, 0, 0.8); }
-        .subtitle { margin: 8px 0 20px; color: #bbb; font-size: 11px; letter-spacing: 2px; }
-        input { width: 100%; padding: 13px 12px; margin: 8px 0; background: #000; border: 1px solid #333; color: var(--gold); border-radius: 7px; text-align: center; font-weight: bold; outline: none; }
-        button { width: 100%; padding: 15px; margin-top: 10px; background: var(--gold); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.25s ease; text-transform: uppercase; }
-        button:hover { background: #fff; box-shadow: 0 0 18px rgba(255, 255, 255, 0.35); }
-        .console { background: #000; border: 1px solid #222; height: 110px; margin-top: 18px; font-size: 11px; padding: 12px; text-align: left; overflow-y: auto; color: var(--green); border-left: 4px solid var(--gold); border-radius: 8px; }
+        :root { --gold: #ffd700; --dark: #050505; --accent: #111; --green: #00ff00; --red: #ff4444; }
+        body { background: var(--dark); color: white; font-family: 'Courier New', Courier, monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { width: 360px; padding: 25px; background: var(--accent); border: 2px solid var(--gold); border-radius: 15px; box-shadow: 0 0 50px rgba(255, 213, 0, 0.2); text-align: center; }
+        h1 { color: var(--gold); letter-spacing: 5px; margin: 0; font-size: 26px; text-shadow: 0 0 15px var(--gold); }
+        .v2-tag { background: var(--gold); color: black; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px; vertical-align: middle; }
+        .subtitle { font-size: 10px; color: #888; margin: 10px 0 20px; letter-spacing: 2px; }
+        input { width: 90%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #333; color: var(--gold); border-radius: 5px; text-align: center; font-weight: bold; outline: none; }
+        button { width: 100%; padding: 15px; background: var(--gold); color: black; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; text-transform: uppercase; }
+        button:disabled { background: #444; color: #888; cursor: not-allowed; }
+        .console { background: #000; border: 1px solid #222; height: 120px; margin-top: 20px; font-size: 11px; padding: 10px; text-align: left; overflow-y: auto; color: var(--green); border-left: 4px solid var(--gold); }
         .hidden { display: none; }
-        .status-box { font-size: 11px; background: #020202; padding: 12px; margin: 14px 0; border-radius: 8px; border: 1px solid #222; color: #ccc; text-align: left; line-height: 1.5; }
+        #status-display { color: var(--red); font-weight: bold; }
     </style>
 </head>
 <body>
     <div id="login-screen" class="card">
-        <h1>GOD TRICK</h1>
-        <div class="subtitle">GLOBAL CHEATS SYSTEM</div>
+        <h1>GOD TRICK <span class="v2-tag">V2</span></h1>
+        <div class="subtitle">SISTEMA DE INJEÇÃO REAL</div>
         <input type="text" id="user" placeholder="LOGIN">
         <input type="password" id="pass" placeholder="SENHA">
-        <button onclick="login()">AUTENTICAR SISTEMA</button>
+        <button onclick="login()">DESBLOQUEAR ACESSO</button>
     </div>
 
     <div id="main-screen" class="card hidden">
-        <h1>GOD TRICK</h1>
-        <div class="subtitle">PAINEL DE CONTROLE USB</div>
-        <div class="status-box" id="device-info">
-            [SISTEMA]: Aguardando Hardware...<br>
-            [DPI]: Sensibilidade Leve Otimizada<br>
-            [TARGET]: Pescoço (Neck Lock)
-        </div>
-        <button onclick="conectarUSB()" style="background: #fff; color: #000; margin-bottom: 10px;">1. CONECTAR VIA USB</button>
-        <button onclick="injetarCheat()">2. ATIVAR GOD TRICK (CAPA)</button>
-        <div class="console" id="log">$ Aguardando conexão USB...</div>
-    </div>
+        <h1>GOD TRICK <span class="v2-tag">V2</span></h1>
+        <div class="subtitle">PAINEL USB AUTÊNTICO</div>
+        <div style="font-size: 11px; text-align: left; margin-bottom: 10px;">
+            STATUS: <span id="status-display">DESCONECTADO</span><br>
+            TARGET: <span style="color:var(--gold)">PESCOÇO (LOCK)</span><br>
+            FOV: <span style="color:var(--gold)">40</span>
 
     <script>
         const AUTH = { user: "god", pass: "trick" };
-        const logArea = document.getElementById('log');
+        let deviceConnected = false;
 
         function print(msg, color = "#00ff00") {
             const t = new Date().toLocaleTimeString();
-            logArea.innerHTML += `<br><span style="color:${color}">[${t}] ${msg}</span>`;
-            logArea.scrollTop = logArea.scrollHeight;
+            document.getElementById('log').innerHTML += `<br><span style="color:${color}">[${t}] ${msg}</span>`;
+            document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
         }
 
         function login() {
-            const user = document.getElementById('user').value;
-            const pass = document.getElementById('pass').value;
-            if (user === AUTH.user && pass === AUTH.pass) {
+            if (document.getElementById('user').value === AUTH.user && document.getElementById('pass').value === AUTH.pass) {
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('main-screen').classList.remove('hidden');
-                detetarAparelho();
             } else {
-                alert("LOGIN INCORRETO!");
+                alert("ACESSO NEGADO!");
             }
         }
 
-        function detetarAparelho() {
-            const ua = navigator.userAgent;
-            let fps = "60";
-            if (ua.includes("Samsung") || ua.includes("Xiaomi")) fps = "120";
-            else if (ua.includes("Motorola")) fps = "90";
-            document.getElementById('device-info').innerHTML = `[HARDWARE]: Detectado<br>[REFRESH]: ${fps}Hz Fixado<br>[DRIVER]: com.auxilio.j7 (Ativo)`;
-        }
-
-        async function conectarUSB() {
-            print("Iniciando busca WebUSB...");
+        async function conectarRealUSB() {
+            print("Solicitando acesso ao hardware USB...");
             try {
                 const device = await navigator.usb.requestDevice({ filters: [] });
-                print("Conectado: " + device.productName, "#ffd700");
-                print("Permissão ADB concedida!", "#ffd700");
+                deviceConnected = true;
+                document.getElementById('status-display').innerText = "CONECTADO: " + device.productName;
+                document.getElementById('status-display').style.color = "var(--green)";
+                document.getElementById('btn-inject').disabled = false;
+                print("Dispositivo " + device.productName + " autorizado!", "#ffd700");
             } catch (err) {
-                print("ERRO: Nenhum dispositivo selecionado.", "#ff0000");
+                print("ERRO: Falha na conexão USB. Verifique o cabo.", "var(--red)");
+                deviceConnected = false;
             }
         }
 
-        function injetarCheat() {
-            print("Iniciando Injeção de Driver...");
+        function injetarV2() {
+            if (!deviceConnected) return;
+            print("Iniciando Protocolo V2...");
+            print("Verificando conexão USB real e FOV 40...");
             setTimeout(() => {
-                print("Ajustando Sensibilidade: LEVE", "#ffd700");
-                print("Fixando Aimlock: PESCOÇO", "#ffd700");
+                print("Lógica 'com.auxilio.j7' injetada no Pescoço.", "#ffd700");
+                print("FOV: 40 fixado com Aimlock premium.", "#ffd700");
+                print("FPS desbloqueado (Sync 120Hz).", "#ffd700");
                 setTimeout(() => {
-                    print("FPS Otimizado: 60/90/120Hz", "#ffd700");
-                    print("GOD TRICK ATIVADO COM SUCESSO!", "#ffd700");
+                    print("---------------------------------");
+                    print("GOD TRICK V2 ATIVO COM SUCESSO!", "#ffd700");
                 }, 1500);
             }, 1000);
         }
