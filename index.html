@@ -91,32 +91,34 @@
         }
 
         async function conectarRealUSB() {
-            print("Iniciando Handshake ADB V4...");
+            print("Iniciando Handshake ADB V4.1...");
             try {
-                // 1. O navegador pede acesso ao hardware
                 const device = await navigator.usb.requestDevice({ filters: [] });
                 await device.open();
 
-                // 2. Tenta selecionar a configuração de interface do Android
+                // FORÇA O RESET PARA LIBERAR A INTERFACE OCUPADA
+                await device.reset();
+
                 if (device.configuration === null) await device.selectConfiguration(1);
 
-                // 3. O SEGREDO: Tenta reivindicar a interface 0 (onde o ADB roda)
-                // Isso obriga o Android a perguntar: "Ei, quem está tentando entrar?"
+                // Tenta liberar qualquer uso prévio antes de clamar
+                try { await device.releaseInterface(0); } catch (e) {}
+
                 await device.claimInterface(0);
 
-                print("Aguardando confirmação RSA no celular...", "#ffd700");
+                print("Interface Liberada! Olhe o celular agora.", "#ffd700");
 
-                // 4. Envia o pacote de "Versão" do ADB para disparar o Pop-up no celular
+                // Envia sinal para disparar o Pop-up RSA
                 const msg = new Uint8Array([0x43, 0x4e, 0x4e, 0x58, 0x00, 0x00, 0x00, 0x01, 0x00, 0x10, 0x00, 0x00]);
                 await device.transferOut(1, msg);
 
                 deviceConnected = true;
-                document.getElementById('status-display').innerText = "AUTORIZADO: " + device.productName;
+                document.getElementById('status-display').innerText = "AUTORIZADO V4.1";
                 document.getElementById('status-display').style.color = "var(--green)";
                 document.getElementById('btn-inject').disabled = false;
             } catch (err) {
-                if (err.message && err.message.includes("busy")) {
-                    print("O dispositivo já está processando. Olhe a tela do celular!", "#ffd700");
+                if (err.message && err.message.includes("claimInterface")) {
+                    print("ERRO: Interface ocupada. Reinicie o USB do celular.", "#ff4444");
                 } else {
                     print("ERRO: " + (err.message || err), "#ff4444");
                 }
