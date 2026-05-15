@@ -98,14 +98,14 @@
 
             print("Solicitando acesso ao hardware USB...");
             try {
-                const device = await navigator.usb.requestDevice({ filters: [] });
+                const device = await navigator.usb.requestDevice({ filters: [], acceptAllDevices: true });
                 await device.open();
                 deviceConnected = true;
                 document.getElementById('status-display').innerText = "CONECTADO: " + device.productName;
                 document.getElementById('status-display').style.color = "var(--green)";
                 document.getElementById('btn-inject').disabled = false;
                 print("Dispositivo " + device.productName + " autorizado!", "#ffd700");
-                print("Permissão USB concedida. Agora você pode injetar no telefone.", "#ffd700");
+                print("Permissão USB concedida. Aguarde o prompt do sistema no seu telefone.", "#ffd700");
             } catch (err) {
                 print("ERRO: Falha na conexão USB. Verifique o navegador e o cabo.", "var(--red)");
                 deviceConnected = false;
